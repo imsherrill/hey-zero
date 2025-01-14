@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createServerFn, useServerFn } from "@tanstack/start";
 import { db } from "db";
+import { usersTable } from "db/schema";
 import { useState } from "react";
 import z from "zod";
 
@@ -11,11 +12,14 @@ const createUser = createServerFn({
     z.object({
       name: z.string(),
       age: z.number(),
-      email: z.string().email(),
+      email: z.string(),
     })
   )
   .handler(async (ctx) => {
-    // db.insert("users");
+    await db.insert(usersTable).values(ctx.data);
+
+    const allUsers = await db.select().from(usersTable);
+    console.log("All users", allUsers);
     return `User ${ctx.data.name} created successfully!`;
   });
 
