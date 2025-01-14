@@ -81,6 +81,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <Meta />
       </head>
       <body>
+        <Link to="/users">Users</Link>
         {children}
         <ScrollRestoration />
         <TanStackRouterDevtools position="bottom-right" />
