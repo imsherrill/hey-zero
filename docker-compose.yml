@@ -8,7 +8,7 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: heyzero
     ports:
-      - "5432:5432"
+      - "8765:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
