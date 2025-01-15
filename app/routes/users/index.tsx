@@ -11,7 +11,6 @@ const createUser = createServerFn({
   .validator(
     z.object({
       name: z.string(),
-      age: z.number(),
       email: z.string(),
     })
   )
@@ -30,7 +29,6 @@ export const Route = createFileRoute("/users/")({
 function RouteComponent() {
   const [formData, setFormData] = useState({
     name: "John Doe",
-    age: 30,
     email: "john.doe@example.com",
   });
 
@@ -70,23 +68,6 @@ function RouteComponent() {
               id="name"
               name="name"
               value={formData.name}
-              onChange={handleChange}
-              required
-              className="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="age"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              Age
-            </label>
-            <input
-              type="number"
-              id="age"
-              name="age"
-              value={formData.age}
               onChange={handleChange}
               required
               className="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
