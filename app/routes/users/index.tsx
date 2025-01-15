@@ -16,20 +16,29 @@ const createUser = createServerFn({
   )
   .handler(async (ctx) => {
     await db.insert(usersTable).values(ctx.data);
-
-    const allUsers = await db.select().from(usersTable);
-    console.log("All users", allUsers);
     return `User ${ctx.data.name} created successfully!`;
   });
 
+const getUsers = createServerFn({
+  method: "GET",
+}).handler(async () => {
+  const allUsers = await db.select().from(usersTable);
+  return allUsers;
+});
+
 export const Route = createFileRoute("/users/")({
+  loader: async () => {
+    return getUsers();
+  },
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const users = Route.useLoaderData();
+
   const [formData, setFormData] = useState({
     name: "John Doe",
-    email: "john.doe@example.com",
+    email: `john.doe+${users.length}@example.com`,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,15 +52,31 @@ function RouteComponent() {
   const createNewUser = useServerFn(createUser);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center pt-16">
-      <div className="w-full max-w-md">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+    <div className="min-h-screen bg-gray-50 flex">
+      {/* Left Panel - Users List */}
+      <div className="w-1/2 p-8 border-r border-gray-200">
+        <h1 className="text-3xl font-bold text-gray-900 mb-8">Users List</h1>
+        <div className="space-y-4">
+          {users.map((user) => (
+            <div
+              key={user.id}
+              className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow"
+            >
+              <h3 className="font-semibold text-lg">{user.name}</h3>
+              <p className="text-gray-600">{user.email}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Right Panel - Create User Form */}
+      <div className="w-1/2 p-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-8">
           Create New User
         </h1>
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            console.log("!!!", formData);
             createNewUser({ data: formData });
           }}
           className="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4"
