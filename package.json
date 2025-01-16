@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "yarn run db:up && vinxi dev",
+    "dev:zero": "npx zero-cache-dev -p zero/schema.ts",
     "build": "vinxi build",
     "start": "vinxi start",
     "db:up": "docker-compose up -d",

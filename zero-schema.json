@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "users": {
+      "row": {
+        "update": {},
+        "delete": []
+      }
+    }
+  },
+  "schema": {
+    "version": 1,
+    "tables": {
+      "users": {
+        "tableName": "users",
+        "primaryKey": [
+          "id"
+        ],
+        "columns": {
+          "email": {
+            "type": "string",
+            "optional": false
+          },
+          "id": {
+            "type": "string",
+            "optional": false
+          },
+          "name": {
+            "type": "string",
+            "optional": false
+          }
+        },
+        "relationships": {}
+      }
+    }
+  }
+}

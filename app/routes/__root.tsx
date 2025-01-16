@@ -13,6 +13,9 @@ import { DefaultCatchBoundary } from "~/components/DefaultCatchBoundary";
 import { NotFound } from "~/components/NotFound";
 import appCss from "~/styles/app.css?url";
 import { seo } from "~/utils/seo";
+import { Zero } from "@rocicorp/zero";
+import { ZeroProvider } from "@rocicorp/zero/react";
+import { schema } from "~/../zero/schema";
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
@@ -47,11 +50,21 @@ export const Route = createRootRouteWithContext<{
   component: RootComponent,
 });
 
+const z = new Zero({
+  userID: "anon",
+  auth: undefined,
+  server: import.meta.env.VITE_PUBLIC_SERVER,
+  schema,
+  kvStore: "mem", // or "idb" for IndexedDB persistence
+});
+
 function RootComponent() {
   return (
-    <RootDocument>
-      <Outlet />
-    </RootDocument>
+    <ZeroProvider zero={z}>
+      <RootDocument>
+        <Outlet />
+      </RootDocument>
+    </ZeroProvider>
   );
 }
 
@@ -62,7 +75,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <Meta />
       </head>
       <body>
-        <Link to="/users">Users</Link>
+        <nav style={{ display: "flex", gap: "1rem" }}>
+          <Link to="/users">Users</Link>
+          <Link to="/usersZ">Users Zero</Link>
+        </nav>
         {children}
         <ScrollRestoration />
         <TanStackRouterDevtools position="bottom-right" />
