@@ -21,7 +21,7 @@
             "optional": false
           },
           "id": {
-            "type": "string",
+            "type": "number",
             "optional": false
           },
           "name": {

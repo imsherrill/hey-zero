@@ -76,10 +76,14 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <nav style={{ display: "flex", gap: "1rem" }}>
-          <Link to="/users">Users</Link>
-          <Link to="/usersZ">Users Zero</Link>
+          <Link className="text-white" to="/users">
+            Users
+          </Link>
+          <Link className="text-white" to="/usersZ">
+            Users Zero
+          </Link>
         </nav>
-        {children}
+        <div className="min-h-screen bg-gray-100 p-4">{children}</div>
         <ScrollRestoration />
         <TanStackRouterDevtools position="bottom-right" />
         <ReactQueryDevtools buttonPosition="bottom-left" />

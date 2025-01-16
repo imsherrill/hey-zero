@@ -4,6 +4,8 @@ import { db } from "db";
 import { usersTable } from "db/schema";
 import { useState } from "react";
 import z from "zod";
+import { UserCard } from "~/components/UserCard";
+// import { UserCard } from "~/components/UserCard";
 
 const createUser = createServerFn({
   method: "POST",
@@ -52,28 +54,20 @@ function RouteComponent() {
   const createNewUser = useServerFn(createUser);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="flex">
       {/* Left Panel - Users List */}
       <div className="w-1/2 p-8 border-r border-gray-200">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Users List</h1>
+        <SectionTitle>Users List</SectionTitle>
         <div className="space-y-4">
           {users.map((user) => (
-            <div
-              key={user.id}
-              className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow"
-            >
-              <h3 className="font-semibold text-lg">{user.name}</h3>
-              <p className="text-gray-600">{user.email}</p>
-            </div>
+            <UserCard key={user.id} user={user} />
           ))}
         </div>
       </div>
 
       {/* Right Panel - Create User Form */}
       <div className="w-1/2 p-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">
-          Create New User
-        </h1>
+        <SectionTitle>Create New User</SectionTitle>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -127,4 +121,8 @@ function RouteComponent() {
       </div>
     </div>
   );
+}
+
+function SectionTitle({ children }: { children: string }) {
+  return <h2 className="text-xl font-bold text-gray-900 mb-4">{children}</h2>;
 }

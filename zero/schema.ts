@@ -19,7 +19,7 @@ import {
 const usersSchema = createTableSchema({
   tableName: "users",
   columns: {
-    id: { type: "string" },
+    id: { type: "number" },
     name: { type: "string" },
     email: { type: "string" },
   },
