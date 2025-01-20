@@ -9,7 +9,7 @@ datasource db {
 
 generator zero {
   provider       = "prisma-generator-zero"
-  // output         = "../zero/schema.ts"
+  output         = "../zero"
 }
 
 model users {
