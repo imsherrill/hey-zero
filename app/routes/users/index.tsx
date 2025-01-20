@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { createServerFn, useServerFn } from "@tanstack/start";
-import { db } from "db";
-import { usersTable } from "db/schema";
+import { prisma } from "prisma/db";
 import { useState } from "react";
 import z from "zod";
 import { UserCard } from "~/components/UserCard";
@@ -17,14 +16,16 @@ const createUser = createServerFn({
     })
   )
   .handler(async (ctx) => {
-    await db.insert(usersTable).values(ctx.data);
+    await prisma.users.create({
+      data: ctx.data,
+    });
     return `User ${ctx.data.name} created successfully!`;
   });
 
 const getUsers = createServerFn({
   method: "GET",
 }).handler(async () => {
-  const allUsers = await db.select().from(usersTable);
+  const allUsers = await prisma.users.findMany();
   return allUsers;
 });
 
