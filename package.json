@@ -6,10 +6,12 @@
   "scripts": {
     "dev": "yarn run db:up && vinxi dev",
     "dev:zero": "npx zero-cache-dev -p zero/schema.ts",
+    "zero:build": "npx zero-build-schema -p zero/schema.ts",
     "build": "vinxi build",
     "start": "vinxi start",
     "db:up": "docker-compose up -d",
-    "db:down": "docker-compose down"
+    "db:down": "docker-compose down",
+    "prisma_generate": "npx prisma generate && yarn run zero:build && node scripts/updatePermissions.mjs"
   },
   "dependencies": {
     "@passionfroot/prisma-generator-zero": "^0.0.5",

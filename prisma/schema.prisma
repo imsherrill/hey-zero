@@ -10,6 +10,8 @@ datasource db {
 generator zero {
   provider       = "prisma-generator-zero"
   output         = "../zero"
+  schemaVersion  = "1"
+
 }
 
 model users {
