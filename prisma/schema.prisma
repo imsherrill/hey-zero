@@ -14,8 +14,9 @@ generator zero {
 
 }
 
-model users {
+model User {
   id    Int    @id @default(autoincrement())
   name  String @db.VarChar(255)
-  email String @unique(map: "users_email_unique") @db.VarChar(255)
+
+  @@map("users")
 }

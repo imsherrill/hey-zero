@@ -8,7 +8,7 @@ import {
 export function buildPermissions(schema: Schema) {
   return definePermissions(schema, () => {
     return {
-      users: {
+      user: {
         row: {
           insert: ANYONE_CAN,
           update: {

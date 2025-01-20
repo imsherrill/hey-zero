@@ -1,6 +1,6 @@
 {
   "permissions": {
-    "users": {
+    "user": {
       "row": {
         "update": {},
         "delete": []
@@ -16,10 +16,6 @@
           "id"
         ],
         "columns": {
-          "email": {
-            "type": "string",
-            "optional": false
-          },
           "id": {
             "type": "number",
             "optional": false
