@@ -7,6 +7,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+generator zero {
+  provider       = "prisma-generator-zero"
+  // output         = "../zero/schema.ts"
+}
+
 model users {
   id    Int    @id @default(autoincrement())
   name  String @db.VarChar(255)
