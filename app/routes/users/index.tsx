@@ -12,11 +12,10 @@ const createUser = createServerFn({
   .validator(
     z.object({
       name: z.string(),
-      email: z.string(),
     })
   )
   .handler(async (ctx) => {
-    await prisma.users.create({
+    await prisma.user.create({
       data: ctx.data,
     });
     return `User ${ctx.data.name} created successfully!`;
@@ -25,7 +24,7 @@ const createUser = createServerFn({
 const getUsers = createServerFn({
   method: "GET",
 }).handler(async () => {
-  const allUsers = await prisma.users.findMany();
+  const allUsers = await prisma.user.findMany();
   return allUsers;
 });
 
@@ -40,8 +39,7 @@ function RouteComponent() {
   const users = Route.useLoaderData();
 
   const [formData, setFormData] = useState({
-    name: "John Doe",
-    email: `john.doe+${users.length}@example.com`,
+    name: `John Doe+${users.length}`,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -88,23 +86,6 @@ function RouteComponent() {
               id="name"
               name="name"
               value={formData.name}
-              onChange={handleChange}
-              required
-              className="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-            />
-          </div>
-          <div className="mb-6">
-            <label
-              htmlFor="email"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
               onChange={handleChange}
               required
               className="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500 focus:ring-1 focus:ring-blue-500"

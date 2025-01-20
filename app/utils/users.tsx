@@ -1,34 +1,29 @@
-import { queryOptions } from '@tanstack/react-query'
-import axios from 'redaxios'
+import { User } from "@prisma/client";
+import { queryOptions } from "@tanstack/react-query";
+import axios from "redaxios";
 
-export type User = {
-  id: number
-  name: string
-  email: string
-}
-
-export const DEPLOY_URL = 'http://localhost:3000'
+export const DEPLOY_URL = "http://localhost:3000";
 
 export const usersQueryOptions = () =>
   queryOptions({
-    queryKey: ['users'],
+    queryKey: ["users"],
     queryFn: () =>
       axios
-        .get<Array<User>>(DEPLOY_URL + '/api/users')
+        .get<Array<User>>(DEPLOY_URL + "/api/users")
         .then((r) => r.data)
         .catch(() => {
-          throw new Error('Failed to fetch users')
+          throw new Error("Failed to fetch users");
         }),
-  })
+  });
 
 export const userQueryOptions = (id: string) =>
   queryOptions({
-    queryKey: ['users', id],
+    queryKey: ["users", id],
     queryFn: () =>
       axios
-        .get<User>(DEPLOY_URL + '/api/users/' + id)
+        .get<User>(DEPLOY_URL + "/api/users/" + id)
         .then((r) => r.data)
         .catch(() => {
-          throw new Error('Failed to fetch user')
+          throw new Error("Failed to fetch user");
         }),
-  })
+  });

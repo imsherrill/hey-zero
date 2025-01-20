@@ -6,12 +6,11 @@ const { enumeration } = column;
 
 // Define schemas
 
-const usersSchema = {
+const UserSchema = {
   tableName: "users",
   columns: {
     id: "number",
     name: "string",
-    email: "string",
   },
   primaryKey: "id",
 } as const;
@@ -21,13 +20,13 @@ const usersSchema = {
 export const schema = createSchema({
   version: 1,
   tables: {
-    users: usersSchema,
+    users: UserSchema,
   },
 });
 
 // Define types
 export type Schema = typeof schema;
-export type users = Row<typeof usersSchema>;
+export type User = Row<typeof UserSchema>;
 
 // Define permissions
 
@@ -37,4 +36,4 @@ export type users = Row<typeof usersSchema>;
 export const permissions = buildPermissions(schema);
 
 // DO NOT TOUCH THIS. The schema hash is used to determine if the schema has changed and correctly update the version.
-// Schema hash: 7e29abf3fb009c4df3baf17ed0d332c0b49409fbbdae2b43889e0a2e0f92dc74
+// Schema hash: 006d4a9afc21ed052d60e7e5bef251f0dd8cf61621babd6cb6368ca276bf13bb
